@@ -2,7 +2,7 @@ function greet(cb){
     setTimeout(() => {
         cb();
     },1000)
-    console.log("Greeting!!!! ");
+    console.log("Greeting!!!!");
 }
 
 function welcome(){
