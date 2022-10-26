@@ -8,6 +8,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
+    "express": "^4.18.2",
     "parcel-bundler": "^1.6.1"
   },
   "devDependencies": {
