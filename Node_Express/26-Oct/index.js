@@ -30,8 +30,17 @@ expressApp.get(/^\/user\/(\d+)$/, (req, res) => {
 })
 
 expressApp.post("/user", (req, res) => {
-    const user = req.body;
-    users.push(user);
+    const userToAdd = req.body; // { id : 123, name : "XYZ"}
+    let userID = userToAdd.id;
+    let isUserAlreadyAdded = users.find((user) => {
+        return user.id == userID;
+    });
+
+    if(isUserAlreadyAdded) {
+        res.status(400).send("User already exists");
+        return;
+    }
+    users.push(userToAdd);
     res.send("User added").status(200);
     res.end();
 })
