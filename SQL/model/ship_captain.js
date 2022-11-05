@@ -1,24 +1,14 @@
 let sequelizeInstance = require("./../connection");
-const sequelize = require("sequelize");
-const Ship = sequelizeInstance.define('ship', {
-    name: sequelize.TEXT,
-    crewCapacity: sequelize.INTEGER,
-    amountOfSails: sequelize.INTEGER
-  }, { timestamps: false });
+let Captain = require("./Captain");
+let Ship = require("./Ships");
+let sequelize = require('sequelize')
 
-const Captain = sequelizeInstance.define('captain', {
-name: sequelize.TEXT,
-skillLevel: {
-    type: sequelize.INTEGER,
-    validate: { min: 1, max: 10 }
-}
-}, { timestamps: false });
-  Captain.hasOne(Ship);
-  Ship.belongsTo(Captain);  
+Captain.hasOne(Ship);
+Ship.belongsTo(Captain);  
 
 async function LoadModel(){
     await sequelizeInstance.sync(); 
-const awesomeCaptain = await Captain.findOne({
+   const awesomeCaptain = await Captain.findOne({
     where: {
         name: "Jack Sparrow"
     }
@@ -33,4 +23,17 @@ const awesomeCaptain = await Captain.findOne({
     console.log('Amount of Sails:', hisShip.amountOfSails);
 }
 
-  LoadModel();
+async function insertData(){
+     Ship
+    .create({
+        name: "Black Pearl",
+        crewCapacity: 1000,
+        amountOfSails: 50
+    })
+    .then(ship => {
+        ship.createCaptain({ name: "Jack Sparrow", skillLevel : 1 })
+    })
+}
+
+
+insertData();

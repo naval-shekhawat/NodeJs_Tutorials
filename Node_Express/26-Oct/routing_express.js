@@ -2,7 +2,7 @@ let express = require("express");// got access to application
 let expressApp = express(); // ();
 
 // Http call for base route
-expressApp.get("/", (req,res) => {
+expressApp.get("/category", (req,res) => {
     res.write("This is my base route");
     res.end();
 })
